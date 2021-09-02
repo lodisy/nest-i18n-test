@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "projects": {
+    "nest-i18n-test": {
+      "root": "apps/nest-i18n-test",
+      "sourceRoot": "apps/nest-i18n-test/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/nest-i18n-test",
+            "main": "apps/nest-i18n-test/src/main.ts",
+            "tsConfig": "apps/nest-i18n-test/tsconfig.app.json",
+            "assets": ["apps/nest-i18n-test/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/nest-i18n-test/src/environments/environment.ts",
+                  "with": "apps/nest-i18n-test/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "nest-i18n-test:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/nest-i18n-test/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/nest-i18n-test"],
+          "options": {
+            "jestConfig": "apps/nest-i18n-test/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/nest"
+  },
+  "defaultProject": "nest-i18n-test"
+}
