@@ -1,6 +1,27 @@
 {
   "version": 2,
   "projects": {
+    "auth": {
+      "root": "libs/auth",
+      "sourceRoot": "libs/auth/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/auth/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/auth"],
+          "options": {
+            "jestConfig": "libs/auth/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "nest-i18n-test": {
       "root": "apps/nest-i18n-test",
       "sourceRoot": "apps/nest-i18n-test/src",
@@ -13,7 +34,10 @@
             "outputPath": "dist/apps/nest-i18n-test",
             "main": "apps/nest-i18n-test/src/main.ts",
             "tsConfig": "apps/nest-i18n-test/tsconfig.app.json",
-            "assets": ["apps/nest-i18n-test/src/assets"]
+            "assets": [
+              "apps/nest-i18n-test/src/assets",
+              "apps/nest-i18n-test/src/locales"
+            ]
           },
           "configurations": {
             "production": {
@@ -46,6 +70,27 @@
           "outputs": ["coverage/apps/nest-i18n-test"],
           "options": {
             "jestConfig": "apps/nest-i18n-test/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "prisma": {
+      "root": "libs/prisma",
+      "sourceRoot": "libs/prisma/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/prisma/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/prisma"],
+          "options": {
+            "jestConfig": "libs/prisma/jest.config.js",
             "passWithNoTests": true
           }
         }

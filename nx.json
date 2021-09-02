@@ -19,7 +19,13 @@
     }
   },
   "projects": {
+    "auth": {
+      "tags": []
+    },
     "nest-i18n-test": {
+      "tags": []
+    },
+    "prisma": {
       "tags": []
     }
   }
