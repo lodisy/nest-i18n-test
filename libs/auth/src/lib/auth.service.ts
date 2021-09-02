@@ -38,7 +38,7 @@ export class AuthService {
           },
           HttpStatus.UNAUTHORIZED
         );
-      return await this.prisma.user.findUnique({
+      return this.prisma.user.findUnique({
         where: {
           id: user.id,
         },
@@ -66,7 +66,7 @@ export class AuthService {
         HttpStatus.CONFLICT
       );
 
-    return await this.prisma.user.create({
+    return this.prisma.user.create({
       data: {
         email,
         password,

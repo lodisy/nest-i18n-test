@@ -14,7 +14,7 @@ export class AuthController {
   @Post('register')
   async register(@Body() data: { email: string; password: string }) {
     const { email, password } = data;
-    return await this.authService.register(email, password);
+    return this.authService.register(email, password);
   }
 
   @Post('login')
@@ -28,7 +28,7 @@ export class AuthController {
     } = this.authService.getCookieAndAccessToken(user.id);
     request.res.setHeader('Set-Cookie', [accessCookie]);
 
-    return await this.prisma.user.update({
+    return this.prisma.user.update({
       where: {
         id: user.id,
       },
