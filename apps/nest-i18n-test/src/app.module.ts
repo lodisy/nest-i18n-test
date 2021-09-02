@@ -1,7 +1,7 @@
 import { AuthModule } from '@nest-i18n-test/auth';
 import { PrismaModule } from '@nest-i18n-test/prisma';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import {
   AcceptLanguageResolver,
@@ -12,15 +12,14 @@ import * as path from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AllExceptionsFilter } from './http-exception.filter';
-
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
 
     I18nModule.forRootAsync({
-      useFactory: async () => {
+      useFactory: async (configService: ConfigService) => {
         return {
-          fallbackLanguage: 'en',
+          fallbackLanguage: configService.get<string>('FALLBACK_LANG'),
           parserOptions: {
             path: path.join(__dirname, '/locales/'),
             watch: true, //enable live translations
@@ -29,6 +28,7 @@ import { AllExceptionsFilter } from './http-exception.filter';
       },
       parser: I18nJsonParser,
       resolvers: [AcceptLanguageResolver],
+      inject: [ConfigService],
     }),
     AuthModule,
     PrismaModule,

@@ -153,9 +153,9 @@ AppModule = (0, tslib_1.__decorate)([
         imports: [
             config_1.ConfigModule.forRoot({ isGlobal: true }),
             nestjs_i18n_1.I18nModule.forRootAsync({
-                useFactory: () => (0, tslib_1.__awaiter)(void 0, void 0, void 0, function* () {
+                useFactory: (configService) => (0, tslib_1.__awaiter)(void 0, void 0, void 0, function* () {
                     return {
-                        fallbackLanguage: 'en',
+                        fallbackLanguage: configService.get('FALLBACK_LANG'),
                         parserOptions: {
                             path: path.join(__dirname, '/locales/'),
                             watch: true, //enable live translations
@@ -164,6 +164,7 @@ AppModule = (0, tslib_1.__decorate)([
                 }),
                 parser: nestjs_i18n_1.I18nJsonParser,
                 resolvers: [nestjs_i18n_1.AcceptLanguageResolver],
+                inject: [config_1.ConfigService],
             }),
             auth_1.AuthModule,
             prisma_1.PrismaModule,
